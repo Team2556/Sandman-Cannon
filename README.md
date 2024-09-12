@@ -9,5 +9,4 @@ Sebastion
 Samantha/Dominic
 
 # RESOURCES:
-
-[example link](https://google.com)
+[Tank drive example link](https://xiaoxiae.github.io/Robotics-Simplified-Website/drivetrain-control/tank-drive/)
