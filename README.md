@@ -7,3 +7,7 @@ Braeden
 Aiden
 Sebastion
 Samantha/Dominic
+
+# RESOURCES:
+
+[example link](google.com)
