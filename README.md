@@ -10,4 +10,4 @@ Samantha/Dominic
 
 # RESOURCES:
 
-[example link](google.com)
+[example link](https://google.com)
