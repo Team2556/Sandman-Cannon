@@ -1,7 +1,0 @@
-pyproject.toml
-src/robot.py
-src/TEAM2556_Python.egg-info/PKG-INFO
-src/TEAM2556_Python.egg-info/SOURCES.txt
-src/TEAM2556_Python.egg-info/dependency_links.txt
-src/TEAM2556_Python.egg-info/requires.txt
-src/TEAM2556_Python.egg-info/top_level.txt
