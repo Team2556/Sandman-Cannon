@@ -73,8 +73,8 @@ class DriveTrain(commands2.Subsystem):
         #     self.robotDrive = wpilib.drive.DifferentialDrive(self.frontLeftMotor, self.frontRightMotor)
         
         
-        self.robotDrive.setMaxOutput(0.60)
-        self.robotDrive.setDeadband(0.3)
+        self.robotDrive.setMaxOutput(0.40)
+        self.robotDrive.setDeadband(0.15)
         self.robotDrive.driveCartesian(0, 0, 0)
         '''rest are defaults so far:
         self.robotDrive.setExpiration(.05)'''
@@ -98,7 +98,7 @@ class DriveTrain(commands2.Subsystem):
         elif isinstance(self.robotDrive, wpilib.drive.DifferentialDrive):
             self.robotDrive.arcadeDrive(joystick.getLeftY(), -joystick.getLeftX())
         else:
-            self.robotDrive.driveCartesian(-joystick.getLeftY(), joystick.getLeftX(), joystick.getRightX())
+            self.robotDrive.driveCartesian(-joystick.getLeftY(), -joystick.getLeftX(), joystick.getRightX())
     def halt(self) -> None:
         self.robotDrive.driveCartesian(0, 0, 0)#, Rotation2d(0))
     def slowLeft(self,joystick: wpilib.Joystick) -> None:
@@ -151,10 +151,14 @@ class TheWB_Xdrive:
         cos = math.cos(base_theta)
         sin = math.sin(base_theta)
         max_trig = max(abs(cos), abs(sin))
-        leftFront = r * cos/max_trig + zRotation
-        rightFront = r * sin/max_trig - zRotation
-        leftRear = r * sin/max_trig + zRotation
-        rightRear = r * cos/max_trig - zRotation
+        leftFront = r * sin/max_trig + zRotation
+        rightFront = r * cos/max_trig - zRotation
+        leftRear = r * cos/max_trig + zRotation
+        rightRear = r * sin/max_trig - zRotation
+        # leftFront = r * cos/max_trig + zRotation
+        # rightFront = r * sin/max_trig - zRotation
+        # leftRear = r * sin/max_trig + zRotation
+        # rightRear = r * cos/max_trig - zRotation
 
         # Limit the toal power to the motors to self.MaxOutput
 
@@ -173,7 +177,7 @@ class TheWB_Xdrive:
         self.frontLeftmotor.set( leftFront)
         # self.frontLeftmotor_control.with_output(leftFront))
         self.frontRightmotor.set(rightFront)
-        self.backLeftmotor.set(leftRear)  
+        self.backLeftmotor.set(leftRear*1.1)  
         self.backRightmotor.set( rightRear)  
 
 
