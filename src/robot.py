@@ -74,7 +74,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def teleopPeriodic(self):
         """This function is called periodically during teleoperated mode."""
-
+        commands2.cmd.runOnce(lambda: self.robotDrive.halt())
     def testInit(self):
         """This function is called once each time the robot enters test mode."""
         commands2.CommandScheduler.getInstance().cancelAll()
@@ -83,7 +83,8 @@ class MyRobot(commands2.TimedCommandRobot):
         """This function is called periodically during test mode."""
     
     def end(self):
-        """This function is called once each time the robot enters test mode."""
+        """This function is called ?? ever """
+        crash_if_run = 1/0
         self.robotDrive.driveCartesian(0,0,0,0)
         self.cannon.stop() #may want to change thsi to let out air??
         commands2.CommandScheduler.getInstance().cancelAll()
