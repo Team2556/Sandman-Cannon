@@ -133,7 +133,7 @@ class MyRobot(commands2.TimedCommandRobot):
                          )
         self.driverController.b().onTrue(OnlyBackRight)
 
-        fire_cannon = (commands2.cmd.run(lambda: self.cannon.fire()).raceWith(commands2.WaitCommand(1.2)))
+        fire_cannon = (commands2.cmd.run(lambda: self.cannon.fire()).raceWith(commands2.WaitCommand(0.2)))
         #.andThen(commands2.cmd.run(lambda: self.cannon.stop())))  # TODO: do i need to stop the firing? put it in periodic of cannon
  
         self.driverController.rightBumper().onTrue(fire_cannon)
