@@ -7,6 +7,7 @@
 
 import wpilib
 from wpilib import (SmartDashboard, Field2d)
+from wpilib.shuffleboard import (Shuffleboard, BuiltInWidgets)
 import wpilib.drive
 # import rev
 # from pyfrc.physics.drivetrains import MecanumDrivetrain

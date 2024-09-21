@@ -107,7 +107,7 @@ class PhysicsEngine:
                     frontLeftMotor_speed,
                     frontRightMotor_speed,
                     backLeftMotor_speed,
-                    backRightMotor_speed
+                    backRightMotor_speed,
                 )
                 # Create an odometry object for X-drive (similar to Mecanum)
                 drivetrain_kinematics = MecanumDriveKinematics(

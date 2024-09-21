@@ -1,8 +1,10 @@
 import commands2
 # from commands2 import Subsystem, CommandScheduler
 
+import phoenix5.sensors
 import wpilib
 from wpilib import SmartDashboard
+from wpilib.shuffleboard import (Shuffleboard, BuiltInWidgets)
 import wpilib.drive
 # import wpimath
 from wpimath.geometry import Rotation2d
@@ -28,15 +30,23 @@ class DriveTrain(commands2.Subsystem):
         # gearbox is constructed, you might have to invert the left side instead.    
         self.frontLeftMotor = phoenix5.WPI_TalonSRX(DriveConstant.kLeftMotor1Port)
         SmartDashboard.putData("frontLeftMotor -from drivetrain", self.frontLeftMotor)
+        # self.frontLeftMotor.config_kF(0, 0.0)
+
         self.frontRightMotor = phoenix5.WPI_TalonSRX(DriveConstant.kRightMotor1Port)
         # self.frontRightMotor.getSimCollection().getMotorOutputLeadVoltage()
         self.frontRightMotor.setInverted(self.right_invert_YN)
         SmartDashboard.putData("frontRightMotor -from drivetrain", self.frontRightMotor)
         self.backLeftMotor = phoenix5.WPI_TalonSRX(DriveConstant.kLeftMotor2Port)
+        self.backLeftMotor.config_kF(0, 0.10)
         SmartDashboard.putData("backLeftMotor -from drivetrain", self.backLeftMotor)
         self.backRightMotor = phoenix5.WPI_TalonSRX(DriveConstant.kRightMotor2Port)
         self.backRightMotor.setInverted(self.right_invert_YN)
         SmartDashboard.putData("backRightMotor -from drivetrain", self.backRightMotor)
+
+        talon = phoenix5.WPI_TalonSRX(DriveConstant.kImuPort)
+        self.gyro = phoenix5.sensors.WPI_PigeonIMU(talon)
+        Shuffleboard.getTab("IMU").add("IMU", self.gyro)
+
         ''' not using encoder yet
         # Set up encoders for each motor
         self.frontLeftEncoder = self.frontLeftMotor.getSensorCollection().getQuadraturePosition
@@ -73,7 +83,16 @@ class DriveTrain(commands2.Subsystem):
         #     self.robotDrive = wpilib.drive.DifferentialDrive(self.frontLeftMotor, self.frontRightMotor)
         
         
-        self.robotDrive.setMaxOutput(0.40)
+       
+        # self.choosable_maxoutput = (Shuffleboard.getTab("MaxSpeed")
+        #                   .add("MaxSpeed", 0.40)
+        #                   .withWidget(BuiltInWidgets.kNumberSlider)
+        #                   .getEntry()
+        #                    )
+        # self.robotDrive.setMaxOutput( self.choosable_maxoutput.getFloat(0.40) )
+
+        
+        self.robotDrive.setMaxOutput( 0.80 )
         self.robotDrive.setDeadband(0.15)
         self.robotDrive.driveCartesian(0, 0, 0)
         '''rest are defaults so far:
@@ -130,7 +149,7 @@ class TheWB_Xdrive:
     def setDeadband(self, deadband: float):
         self.Deadband = deadband
 
-    def driveCartesian(self, xSpeed, ySpeed, zRotation): #, gyroAngle = 0.0):
+    def driveCartesian(self, xSpeed, ySpeed, zRotation): #, gyroAngle:: wpimath.geometry._geometry.Rotation2d  = 0.0):
         '''
         xSpeed: The speed that the robot should drive in its X direction. [-1.0..1.0]
         ySpeed: The speed that the robot should drive in its Y direction. [-1.0..1.0]
@@ -177,7 +196,7 @@ class TheWB_Xdrive:
         self.frontLeftmotor.set( leftFront)
         # self.frontLeftmotor_control.with_output(leftFront))
         self.frontRightmotor.set(rightFront)
-        self.backLeftmotor.set(leftRear*1.1)  
+        self.backLeftmotor.set(leftRear)  
         self.backRightmotor.set( rightRear)  
 
 

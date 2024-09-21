@@ -51,6 +51,7 @@
   "NTProvider": {
     "types": {
       "/FMSInfo": "FMSInfo",
+      "/Shuffleboard/IMU/IMU": "Gyro",
       "/SmartDashboard/Cannon": "Subsystem",
       "/SmartDashboard/Cannon Lift Down": "Command",
       "/SmartDashboard/Cannon Lift Up": "Command",
