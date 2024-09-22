@@ -5,7 +5,7 @@
 # import pyfrc.util
 from re import S
 import wpilib
-from wpilib import SmartDashboard
+from wpilib import SmartDashboard, shuffleboard
 from wpilib.simulation import (PWMSim, AnalogGyroSim,)
 # from wpilib.drive import MecanumDrive
 import wpilib.simulation
@@ -48,7 +48,10 @@ class PhysicsEngine:
         # self.backRightMotor.setInverted(self.right_invert_YN) sim colletion has no set inverted
 
         # Initialize the gyro
-        # self.gyro = AnalogGyroSim()#navx.AHRS.create_spi()
+        self.simGyro = AnalogGyroSim(1)#navx.AHRS.create_spi()
+        self.simGyro.setAngle(self.robot.gyro.getAngle())
+        
+        
 
         #initialize the Xbox conroller
         self.Drivercontroller = wpilib.XboxController(OIConstant.kDriver1ControllerPort)
@@ -58,6 +61,7 @@ class PhysicsEngine:
         # Sim driverstation status and enable the signals. So, for now, manually
         # feed the enable signal for double the set robot period.
         feed_enable(0.020 * 2)
+         
 
 
         # Update motor voltages
@@ -121,3 +125,5 @@ class PhysicsEngine:
                 self.physics_controller.drive(chassis_speeds, tm_diff)
 
     
+        # simulated_gyro =  # chassis_speeds.omega #self.simGyro.getAngle()
+        # SmartDashboard.putNumber("Sim Gyro", simulated_gyro)

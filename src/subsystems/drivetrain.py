@@ -1,3 +1,4 @@
+from random import shuffle
 import commands2
 # from commands2 import Subsystem, CommandScheduler
 
@@ -10,6 +11,7 @@ import wpilib.drive
 from wpimath.geometry import Rotation2d
 
 import phoenix5
+import wpiutil
 
 from constants import DriveConstant
 
@@ -45,8 +47,9 @@ class DriveTrain(commands2.Subsystem):
 
         talon = phoenix5.WPI_TalonSRX(DriveConstant.kImuPort)
         self.gyro = phoenix5.sensors.WPI_PigeonIMU(talon)
+        self.gyro.reset()
         Shuffleboard.getTab("IMU").add("IMU", self.gyro)
-
+        
         ''' not using encoder yet
         # Set up encoders for each motor
         self.frontLeftEncoder = self.frontLeftMotor.getSensorCollection().getQuadraturePosition
@@ -101,6 +104,7 @@ class DriveTrain(commands2.Subsystem):
 
     def periodic(self) -> None:
         """This method will be called once per scheduler run"""
+        self.gyro.setYawToCompass()
         # Add code here that needs to run periodically
         # SmartDashboard.putNumber("frontLeftMotor -from drivetrain getmotoroutputpercent", self.frontLeftMotor.getMotorOutputPercent())
         # SmartDashboard.putNumber("frontRightMotor -from drivetrain getmotoroutputpercent", self.frontRightMotor.getMotorOutputPercent())

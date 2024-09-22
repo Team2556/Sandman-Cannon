@@ -5,6 +5,8 @@
 # the WPILib BSD license file in the root directory of this project.
 #
 
+import phoenix5
+import phoenix5.sensors
 import wpilib
 from wpilib import (SmartDashboard, Field2d)
 from wpilib.shuffleboard import (Shuffleboard, BuiltInWidgets)
@@ -20,6 +22,7 @@ from constants import (DriveConstant,
                        )
 # import phoenix5
 # import math
+import constants
 from subsystems.drivetrain import DriveTrain
 from subsystems.cannon import Cannon
 
@@ -45,6 +48,11 @@ class MyRobot(commands2.TimedCommandRobot):
             OIConstant.kDriver1ControllerPort)
         # Configure the button bindings
         self.ConfigureButtonBindings()
+
+        #init a pigon2 gyro
+        self.gyro = phoenix5.sensors.WPI_Pigeon2(DriveConstant.kImuPort)
+        self.gyro.configFactoryDefault()
+        
 
         #endregion tie ins
 
