@@ -4,14 +4,21 @@ import commands2
 
 import phoenix5.sensors
 import wpilib
-from wpilib import SmartDashboard
+from wpilib import DriverStation, SmartDashboard
 from wpilib.shuffleboard import (Shuffleboard, BuiltInWidgets)
 import wpilib.drive
 # import wpimath
+import wpimath
 from wpimath.geometry import Rotation2d
+from wpimath.kinematics import MecanumDriveKinematics, MecanumDriveWheelSpeeds, MecanumDriveOdometry,SwerveDrive4Kinematics
+wpimath.kinematics
 
 import phoenix5
 import wpiutil
+
+from pathplannerlib.auto import AutoBuilder
+from pathplannerlib.config import HolonomicPathFollowerConfig, ReplanningConfig, PIDConstants
+
 
 from constants import DriveConstant
 
@@ -74,6 +81,9 @@ class DriveTrain(commands2.Subsystem):
                                                             frontRightMotor=self.frontRightMotor,
                                                             rearLeftMotor=self.backLeftMotor,
                                                             rearRightMotor=self.backRightMotor)
+            case "Swerve":
+                self.robotDrive = wpilib.drive.SwerveDrive(self.frontLeftMotor, self.backLeftMotor, self.frontRightMotor, self.backRightMotor)
+
         
         # if DriveConstant.kIsMecanum:
         #     self.robotDrive = wpilib.drive.MecanumDrive(frontLeftMotor= self.frontLeftMotor, 
@@ -101,6 +111,35 @@ class DriveTrain(commands2.Subsystem):
         '''rest are defaults so far:
         self.robotDrive.setExpiration(.05)'''
 
+        #define the expected methods for pathplannerlib
+        AutoBuilder.configureHolonomic(
+            pose_supplier=self.getPose,
+            reset_pose= self.resetPose,
+            robot_relative_speeds_supplier=self.getRobotRelativeSpeeds,
+            robot_relative_output=self.driveRobotRelative,
+            config=HolonomicPathFollowerConfig(
+                translationConstants=PIDConstants(5, 0.0, 0.0),
+                rotationConstants=PIDConstants(5, 0.0, 0.0),
+                maxModuleSpeed=1.0,
+                driveBaseRadius=0.5,
+                replanningConfig=ReplanningConfig(
+                    enableInitialReplanning=True, 
+                    enableDynamicReplanning=True, 
+                    dynamicReplanningTotalErrorThreshold=1.0, 
+                    dynamicReplanningErrorSpikeThreshold=0.25),
+                    period=0.02),
+            should_flip_path=self.shouldFlipPath,
+            drive_subsystem=self
+        )
+    
+    def shouldFlipPath():
+        return DriverStation.getAlliance() == DriverStation.Alliance.kRed
+
+    def getPose(self): #need encoders to feed odometry to produce a dynamic pose
+        return 
+    def resetPose(self):
+        self.gyro.reset()
+    
 
     def periodic(self) -> None:
         """This method will be called once per scheduler run"""
@@ -196,13 +235,12 @@ class TheWB_Xdrive:
         SmartDashboard.putNumber("leftRear in TheWB_drivecartesian", leftRear)
         SmartDashboard.putNumber("rightRear in TheWB_drivecartesian", rightRear)
 
-        # TODO: should this just set motor speeds instead of return something
         self.frontLeftmotor.set( leftFront)
-        # self.frontLeftmotor_control.with_output(leftFront))
         self.frontRightmotor.set(rightFront)
         self.backLeftmotor.set(leftRear)  
         self.backRightmotor.set( rightRear)  
 
 
+        # TODO: should this just set motor speeds instead of return something
         return (leftFront, rightFront, leftRear, rightRear)
 

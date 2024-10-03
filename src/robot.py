@@ -17,6 +17,8 @@ import commands2
 from commands2 import CommandScheduler
 import wpimath
 from wpimath.geometry import Translation2d, Rotation2d
+import pathplannerlib
+
 from constants import (DriveConstant,
                        OIConstant,
                        )
@@ -25,6 +27,7 @@ from constants import (DriveConstant,
 import constants
 from subsystems.drivetrain import DriveTrain
 from subsystems.cannon import Cannon
+
 
 
 #region Helper functions
@@ -60,6 +63,10 @@ class MyRobot(commands2.TimedCommandRobot):
                                                             , self.robotDrive))
         self.cannon.setDefaultCommand(commands2.cmd.run(lambda: self.cannon.stop(), self.cannon))
 
+        #region PathPlanner
+        self.pathPlanner = pathplannerlib.PathPlanner(self.robotDrive)
+        #endregion PathPlanner
+
         #region SmartDashboard init
 
         SmartDashboard.putData(CommandScheduler.getInstance())
@@ -74,6 +81,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def autonomousPeriodic(self):
         """This function is called periodically during autonomous."""
+
 
     def teleopInit(self):
         """This function is called once each time the robot enters teleoperated mode."""

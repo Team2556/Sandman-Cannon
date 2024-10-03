@@ -1,5 +1,7 @@
 from enum import (IntEnum, auto)
 
+from wpilib import CAN
+
 #region RoboRio Constants
 # included to help with communication and readability
 class Rio_DIO(IntEnum):
@@ -77,12 +79,33 @@ class CAN_Address(IntEnum):
 
 #endregion
 class DriveConstant:
-    kDriveTye = "Xdrive" #"Tank" #"Mecanum"#
-    kLeftMotor1Port = CAN_Address.THREE
-    kRightMotor1Port = CAN_Address.TWO
-    kLeftMotor2Port = CAN_Address.ONE
-    kRightMotor2Port = CAN_Address.FOUR
-    kImuPort = CAN_Address.SIX
+    #purple Haze setup
+    #rev neo 550 pulled from https://github.com/Team2556/Crescendo/tree/master/src/main/deploy/swerve/modules
+    kDriveTye = "Swerve"#"Mecanum"#"Xdrive" #"Tank" #
+    kLeftMotorFront_DrivePort = CAN_Address.TWO
+    kRightMotorFront_DrivePort = CAN_Address.EIGHT
+    kLeftMotorRear_DrivePort = CAN_Address.FOUR
+    kRightMotorRear_DrivePort = CAN_Address.SIX
+    #talonfx
+    kLeftMotorFront_SteerPort = CAN_Address.ONE
+    kRightMotorFront_SteerPort = CAN_Address.SEVEN
+    kLeftMotorRear_SteerPort = CAN_Address.THREE
+    kRightMotorRear_SteerPort = CAN_Address.FIVE
+    
+
+    #SANTANA setup
+    # kDriveTye = "Mecanum"#"Xdrive" #"Tank" #
+    # kLeftMotor1Port = CAN_Address.ONE
+    # kRightMotor1Port = CAN_Address.TWO
+    # kLeftMotor2Port = CAN_Address.THREE
+    # kRightMotor2Port = CAN_Address.FOUR
+    #nvx in rio for imu kImuPort = CAN_Address.SIX
+    # reggie setup
+    # kLeftMotor1Port = CAN_Address.THREE
+    # kRightMotor1Port = CAN_Address.TWO
+    # kLeftMotor2Port = CAN_Address.ONE
+    # kRightMotor2Port = CAN_Address.FOUR
+    # kImuPort = CAN_Address.SIX
 
     kFrontLeftEncoderPorts = (Rio_DIO.TEN, Rio_DIO.ELEVEN)
     kFrontRightEncoderPorts = (Rio_DIO.TWELVE, Rio_DIO.THIRTEEN)
