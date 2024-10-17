@@ -5,6 +5,11 @@
 .venv
 venv
 
+# robotpy deploy files
+*.pyc
+*.*.pyc
+drivetrain.cpython-312.pyc
+
 ### C++ ###
 # Prerequisites
 *.d
