@@ -55,6 +55,8 @@ class DriveTrain(commands2.Subsystem):
             case "Xdrive":
                 self.robotDrive = TheWB_Xdrive(self.frontLeftMotor, self.frontRightMotor, self.backLeftMotor, self.backRightMotor)
             case "Tank":
+                self.backLeftMotor.follow(self.frontLeftMotor)
+                self.backRightMotor.follow(self.frontRightMotor)
                 self.robotDrive = wpilib.drive.DifferentialDrive(self.frontLeftMotor, self.frontRightMotor)
             case "Mecanum": 
                 self.robotDrive = wpilib.drive.MecanumDrive(frontLeftMotor= self.frontLeftMotor,    
@@ -75,7 +77,8 @@ class DriveTrain(commands2.Subsystem):
         
         self.robotDrive.setMaxOutput(0.60)
         self.robotDrive.setDeadband(0.3)
-        self.robotDrive.driveCartesian(0, 0, 0)
+        if DriveConstant.kDriveTye != "Tank":
+            self.robotDrive.driveCartesian(0, 0, 0)
         '''rest are defaults so far:
         self.robotDrive.setExpiration(.05)'''
 
@@ -96,7 +99,7 @@ class DriveTrain(commands2.Subsystem):
         if isinstance(self.robotDrive, wpilib.drive.MecanumDrive):
             self.robotDrive.driveCartesian(joystick.getLeftX(), joystick.getRightX(),-joystick.getLeftY(),  Rotation2d(0))
         elif isinstance(self.robotDrive, wpilib.drive.DifferentialDrive):
-            self.robotDrive.arcadeDrive(joystick.getLeftY(), -joystick.getLeftX())
+            self.robotDrive.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX())
         else:
             self.robotDrive.driveCartesian(-joystick.getLeftY(), joystick.getLeftX(), joystick.getRightX())
     def halt(self) -> None:

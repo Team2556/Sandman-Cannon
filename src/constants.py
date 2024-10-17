@@ -77,12 +77,12 @@ class CAN_Address(IntEnum):
 
 #endregion
 class DriveConstant:
-    kDriveTye = "Xdrive" #"Tank" #"Mecanum"
+    kDriveTye = "Tank" #"Xdrive" #"Mecanum"
     # kIsMecanum = False
-    kLeftMotor1Port = CAN_Address.THREE
-    kLeftMotor2Port = CAN_Address.FOUR
-    kRightMotor1Port = CAN_Address.ONE
-    kRightMotor2Port = CAN_Address.TWO
+    kLeftMotor1Port = CAN_Address.ONE
+    kLeftMotor2Port = CAN_Address.TWO
+    kRightMotor1Port = CAN_Address.THREE
+    kRightMotor2Port = CAN_Address.FOUR
     kFrontLeftEncoderPorts = (Rio_DIO.TEN, Rio_DIO.ELEVEN)
     kFrontRightEncoderPorts = (Rio_DIO.TWELVE, Rio_DIO.THIRTEEN)
     kBackLeftEncoderPorts = (Rio_DIO.FOURTEEN, Rio_DIO.FIFTEEN)
