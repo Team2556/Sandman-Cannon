@@ -75,6 +75,8 @@ class DriveTrain(commands2.Subsystem):
             case "Xdrive":
                 self.robotDrive = TheWB_Xdrive(self.frontLeftMotor, self.frontRightMotor, self.backLeftMotor, self.backRightMotor)
             case "Tank":
+                self.backLeftMotor.follow(self.frontLeftMotor)
+                self.backRightMotor.follow(self.frontRightMotor)
                 self.robotDrive = wpilib.drive.DifferentialDrive(self.frontLeftMotor, self.frontRightMotor)
             case "Mecanum": 
                 self.robotDrive = wpilib.drive.MecanumDrive(frontLeftMotor= self.frontLeftMotor,    

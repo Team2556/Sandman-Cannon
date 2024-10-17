@@ -81,7 +81,7 @@ class CAN_Address(IntEnum):
 class DriveConstant:
     #purple Haze setup
     #rev neo 550 pulled from https://github.com/Team2556/Crescendo/tree/master/src/main/deploy/swerve/modules
-    kDriveTye = "Swerve"#"Mecanum"#"Xdrive" #"Tank" #
+    kDriveTye = "Tank"#"Swerve"#"Mecanum"#"Xdrive" #"Tank" #
     kLeftMotorFront_DrivePort = CAN_Address.TWO
     kRightMotorFront_DrivePort = CAN_Address.EIGHT
     kLeftMotorRear_DrivePort = CAN_Address.FOUR
