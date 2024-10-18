@@ -30,13 +30,19 @@ class DriveTrain(commands2.Subsystem):
         SmartDashboard.putData("frontLeftMotor -from drivetrain", self.frontLeftMotor)
         self.frontRightMotor = phoenix5.WPI_TalonSRX(DriveConstant.kRightMotor1Port)
         # self.frontRightMotor.getSimCollection().getMotorOutputLeadVoltage()
-        self.frontRightMotor.setInverted(self.right_invert_YN)
         SmartDashboard.putData("frontRightMotor -from drivetrain", self.frontRightMotor)
         self.backLeftMotor = phoenix5.WPI_TalonSRX(DriveConstant.kLeftMotor2Port)
         SmartDashboard.putData("backLeftMotor -from drivetrain", self.backLeftMotor)
         self.backRightMotor = phoenix5.WPI_TalonSRX(DriveConstant.kRightMotor2Port)
-        self.backRightMotor.setInverted(self.right_invert_YN)
         SmartDashboard.putData("backRightMotor -from drivetrain", self.backRightMotor)
+
+        if DriveConstant.kDriveTye == "Tank":
+            
+            self.frontLeftMotor.setInverted(self.right_invert_YN)
+            self.backLeftMotor.setInverted(self.right_invert_YN)
+        else:
+            self.frontRightMotor.setInverted(self.right_invert_YN)
+            self.backRightMotor.setInverted(self.right_invert_YN)
         ''' not using encoder yet
         # Set up encoders for each motor
         self.frontLeftEncoder = self.frontLeftMotor.getSensorCollection().getQuadraturePosition
