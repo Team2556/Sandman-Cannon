@@ -70,7 +70,7 @@ class PhysicsEngine:
         backRightMotor_speed = self.backRightMotor.getMotorOutputLeadVoltage() / (12*(1-2*self.right_invert_YN))
         SmartDashboard.putNumber("backRightMotor_SIM getmotorOutput Volts by 12Volts", backRightMotor_speed)
 
-        match DriveConstant.kDriveTye:
+        match DriveConstant.kDriveType:
             case "Mecanum":
                 wheel_speeds = MecanumDriveWheelSpeeds(
                     frontLeftMotor_speed,

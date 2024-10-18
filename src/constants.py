@@ -77,18 +77,26 @@ class CAN_Address(IntEnum):
 
 #endregion
 class DriveConstant:
-    kDriveTye = "Tank" #"Xdrive" #"Mecanum"
+    kDriveType = "Tank" #"Xdrive" #"Mecanum"
     # kIsMecanum = False
-    
+    match kDriveType:
+        case "Xdrive":    
+            # set-up for reggie - round bot
+            kLeftMotor1Port = CAN_Address.THREE
+            kRightMotor1Port = CAN_Address.TWO
+            kLeftMotor2Port = CAN_Address.ONE
+            kRightMotor2Port = CAN_Address.FOUR
+        case "Tank":
+            # PURPLE Sandman-py CAN addresses; uses tank drive
+            kLeftMotor1Port = CAN_Address.THREE
+            kLeftMotor2Port = CAN_Address.FOUR
+            kRightMotor1Port = CAN_Address.ONE
+            kRightMotor2Port = CAN_Address.TWO
+
     # kLeftMotor1Port = CAN_Address.THREE
     # kLeftMotor2Port = CAN_Address.FOUR
     # kRightMotor1Port = CAN_Address.ONE
     # kRightMotor2Port = CAN_Address.TWO
-    # PURPLE Sandman-py CAN addresses; uses tank drive
-    kLeftMotor1Port = CAN_Address.THREE
-    kLeftMotor2Port = CAN_Address.FOUR
-    kRightMotor1Port = CAN_Address.ONE
-    kRightMotor2Port = CAN_Address.TWO
 
     kFrontLeftEncoderPorts = (Rio_DIO.TEN, Rio_DIO.ELEVEN)
     kFrontRightEncoderPorts = (Rio_DIO.TWELVE, Rio_DIO.THIRTEEN)

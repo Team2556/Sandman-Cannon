@@ -36,7 +36,7 @@ class DriveTrain(commands2.Subsystem):
         self.backRightMotor = phoenix5.WPI_TalonSRX(DriveConstant.kRightMotor2Port)
         SmartDashboard.putData("backRightMotor -from drivetrain", self.backRightMotor)
 
-        if DriveConstant.kDriveTye == "Tank":
+        if DriveConstant.kDriveType == "Tank":
             
             self.frontLeftMotor.setInverted(self.right_invert_YN)
             self.backLeftMotor.setInverted(self.right_invert_YN)
@@ -57,7 +57,7 @@ class DriveTrain(commands2.Subsystem):
         self.backLeftMotor.getSensorCollection().setQuadraturePosition(0, 10)
         self.backRightMotor.getSensorCollection().setQuadraturePosition(0, 10)
         '''
-        match DriveConstant.kDriveTye:
+        match DriveConstant.kDriveType:
             case "Xdrive":
                 self.robotDrive = TheWB_Xdrive(self.frontLeftMotor, self.frontRightMotor, self.backLeftMotor, self.backRightMotor)
             case "Tank":
@@ -83,7 +83,7 @@ class DriveTrain(commands2.Subsystem):
         
         self.robotDrive.setMaxOutput(0.60)
         self.robotDrive.setDeadband(0.3)
-        if DriveConstant.kDriveTye != "Tank":
+        if DriveConstant.kDriveType != "Tank":
             self.robotDrive.driveCartesian(0, 0, 0)
         '''rest are defaults so far:
         self.robotDrive.setExpiration(.05)'''
