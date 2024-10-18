@@ -117,4 +117,9 @@ class OIConstant:
 class CannonConstant:
     kCompressorAddress = CAN_Address.FIVE
     kRelayAddress = Rio_Relay.ZERO
+
+class TurretConstant:
+    kRotateMotor = CAN_Address.FIVE #TODO: figure out what this should be
+    kLiftMotor = CAN_Address.SIX #TODO: figure out what this should be
+
     
