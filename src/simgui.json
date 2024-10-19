@@ -65,6 +65,8 @@
       "/SmartDashboard/SafeAndArm": "Subsystem",
       "/SmartDashboard/Scheduler": "Scheduler",
       "/SmartDashboard/SendableChooser[0]": "String Chooser",
+      "/SmartDashboard/Turret Lift Motor": "Motor Controller",
+      "/SmartDashboard/Turret Rotate Motor": "Motor Controller",
       "/SmartDashboard/backLeftMotor": "Motor Controller",
       "/SmartDashboard/backLeftMotor -from drivetrain": "Motor Controller",
       "/SmartDashboard/backRightMotor": "Motor Controller",
@@ -90,6 +92,11 @@
         "right": 2961,
         "top": 79,
         "width": 16.541748046875,
+        "window": {
+          "visible": true
+        }
+      },
+      "/SmartDashboard/Turret Rotate Motor": {
         "window": {
           "visible": true
         }
