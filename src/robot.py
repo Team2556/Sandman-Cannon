@@ -20,6 +20,7 @@ from constants import (DriveConstant,
                        )
 # import phoenix5
 # import math
+from subsystems import turret
 from subsystems.drivetrain import DriveTrain
 from subsystems.cannon import Cannon
 from subsystems.turret import Turret
@@ -52,8 +53,10 @@ class MyRobot(commands2.TimedCommandRobot):
 
         self.robotDrive.setDefaultCommand(commands2.cmd.run(lambda: self.robotDrive.driveWithJoystick(self.driverController)
                                                             , self.robotDrive))
-        self.cannon.setDefaultCommand(commands2.cmd.run(lambda: self.cannon.stop(), self.cannon))
-        self.turret.setDefaultCommand(commands2.cmd.run(lambda: self.turret.stop_rotate(), self.turret))
+        self.cannon.setDefaultCommand(commands2.cmd.run(lambda: self.cannon.stop(), 
+                                                        self.cannon))
+        self.turret.setDefaultCommand(commands2.cmd.run(lambda: self.turret.aimWithJoystick(self.driverController),
+                                                        self.turret))
 
         #region SmartDashboard init
 
@@ -134,10 +137,8 @@ class MyRobot(commands2.TimedCommandRobot):
                          .raceWith(commands2.WaitCommand(.4)))
                          )
         self.driverController.b().onTrue(OnlyBackRight)
-
+        # connon Firing
         fire_cannon = (commands2.cmd.run(lambda: self.cannon.fire()).raceWith(commands2.WaitCommand(0.2)))
-        #.andThen(commands2.cmd.run(lambda: self.cannon.stop())))  # TODO: do i need to stop the firing? put it in periodic of cannon
- 
         self.driverController.rightBumper().onTrue(fire_cannon)
 
         #section Turret

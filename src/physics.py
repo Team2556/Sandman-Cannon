@@ -89,11 +89,11 @@ class PhysicsEngine:
                 # Update the physics controller with the new state
                 self.physics_controller.drive(chassis_speeds, tm_diff)
             case "Tank":
-                # TODO: FIX!!!!!!!!!!!!!!!
+                # This is setup for Sandman - the morots directions are inverted in the gearboxes
 
                 wheel_speeds = DifferentialDriveWheelSpeeds(
-                    frontLeftMotor_speed,
-                    frontRightMotor_speed
+                    -frontLeftMotor_speed,
+                    -frontRightMotor_speed
                 )
                 # Create an odometry object
                 drivetrain_kinematics = DifferentialDriveKinematics(DriveConstant.kTrackWidth)
