@@ -13,15 +13,17 @@ class Turret(Subsystem):
         SmartDashboard.putData("Turret Rotate Motor", self.rotate_motor)
         # self.rotate_motor.  .setNeutralMode(wpilib.NeutralMode.Brake)
         #add limitswitches
-        self.rotate_motor.configForwardLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
-        self.rotate_motor.configReverseLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen) 
+        if False: # need to install on robot
+            self.rotate_motor.configForwardLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
+            self.rotate_motor.configReverseLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen) 
 
         self.lift_motor = phoenix5.WPI_TalonSRX(TurretConstant.kLiftMotor)
         SmartDashboard.putData("Turret Lift Motor", self.lift_motor)
         # self.lift_motor.setNeutralMode(wpilib.NeutralMode.Brake)
         #add limitswitches
-        self.lift_motor.configForwardLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
-        self.lift_motor.configReverseLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
+        if False: # need to install on robot
+            self.lift_motor.configForwardLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
+            self.lift_motor.configReverseLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)
 
 
     def move_rotate(self, speed: float):
