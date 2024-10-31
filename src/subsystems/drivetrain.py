@@ -105,7 +105,7 @@ class DriveTrain(commands2.Subsystem):
         if isinstance(self.robotDrive, wpilib.drive.MecanumDrive):
             self.robotDrive.driveCartesian(joystick.getLeftX(), joystick.getRightX(),-joystick.getLeftY(),  Rotation2d(0))
         elif isinstance(self.robotDrive, wpilib.drive.DifferentialDrive):
-            self.robotDrive.arcadeDrive(-joystick.getLeftY(), -joystick.getLeftX())
+            self.robotDrive.arcadeDrive(-joystick.getLeftY(), -(joystick.getRightX())**5)
         else:
             self.robotDrive.driveCartesian(-joystick.getLeftY(), -joystick.getLeftX(), joystick.getRightX())
     def halt(self) -> None:

@@ -16,11 +16,13 @@ import wpimath
 from wpimath.geometry import Translation2d, Rotation2d
 from constants import (DriveConstant,
                        OIConstant,
+                       TurretConstant
                        )
 # import phoenix5
 # import math
 from subsystems.drivetrain import DriveTrain
 from subsystems.cannon import Cannon
+from subsystems.turret import Turret
 
 
 #region Helper functions
@@ -38,6 +40,7 @@ class MyRobot(commands2.TimedCommandRobot):
         #region tie ins
         self.robotDrive = DriveTrain()
         self.cannon = Cannon()
+        self.turret = Turret()
 
 
         self.driverController = commands2.button.CommandXboxController(
@@ -50,6 +53,7 @@ class MyRobot(commands2.TimedCommandRobot):
         self.robotDrive.setDefaultCommand(commands2.cmd.run(lambda: self.robotDrive.driveWithJoystick(self.driverController)
                                                             , self.robotDrive))
         self.cannon.setDefaultCommand(commands2.cmd.run(lambda: self.cannon.stop(), self.cannon))
+        self.turret.setDefaultCommand(commands2.cmd.run(lambda: self.turret.stop_rotate(), self.turret))
 
         #region SmartDashboard init
 
@@ -90,8 +94,6 @@ class MyRobot(commands2.TimedCommandRobot):
         commands2.CommandScheduler.getInstance().cancelAll()
 
     def ConfigureButtonBindings(self):
-        self.driverController.povLeft().onTrue(lambda: self.robotDrive.slowLeft(self.driverController))
-        self.driverController.povRight().onTrue(lambda: self.robotDrive.slowRight(self.driverController))
 
         OnlyFrontLeft = commands2.SequentialCommandGroup(
             commands2.cmd.run(lambda: self.robotDrive.OnlyFrontLeft()).raceWith(
@@ -137,6 +139,15 @@ class MyRobot(commands2.TimedCommandRobot):
         #.andThen(commands2.cmd.run(lambda: self.cannon.stop())))  # TODO: do i need to stop the firing? put it in periodic of cannon
  
         self.driverController.rightBumper().onTrue(fire_cannon)
+
+        #section Turret
+        
+        rotate_left = (commands2.cmd.run(lambda: self.turret.move_rotate(TurretConstant.kDefault_rotate_speed), self.turret))
+        self.driverController.povLeft().whileTrue(rotate_left)
+        rotate_right = (commands2.cmd.run(lambda: self.turret.move_rotate(-TurretConstant.kDefault_rotate_speed), self.turret))
+        self.driverController.povRight().whileTrue(rotate_right)
+
+        #end section
             
 
         

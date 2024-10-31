@@ -2,16 +2,17 @@ from commands2 import Subsystem
 from constants import TurretConstant
 import wpilib
 import phoenix5
+import phoenix6
 
 class Turret(Subsystem):
     def __init__(self):
         super().__init__()
 
         self.rotate_motor = phoenix5.WPI_TalonSRX(TurretConstant.kRotateMotor)
-        self.rotate_motor.setNeutralMode(wpilib.NeutralMode.Brake)
+        # self.rotate_motor.setNeutralMode(wpilib.NeutralMode.Brake)
         
         self.lift_motor = phoenix5.WPI_TalonSRX(TurretConstant.kLiftMotor)
-        self.lift_motor.setNeutralMode(wpilib.NeutralMode.Brake)
+        # self.lift_motor.setNeutralMode(wpilib.NeutralMode.Brake)
 
     def move_rotate(self, speed: float):
         self.rotate_motor.set(speed)

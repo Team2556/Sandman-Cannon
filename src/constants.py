@@ -114,12 +114,15 @@ class OIConstant:
     kDriver2ControllerPort = 1
 
 
-class CannonConstant:
-    kCompressorAddress = CAN_Address.FIVE
-    kRelayAddress = Rio_Relay.ZERO
-
 class TurretConstant:
-    kRotateMotor = CAN_Address.FIVE #TODO: figure out what this should be
-    kLiftMotor = CAN_Address.SIX #TODO: figure out what this should be
+    kRotateMotor = CAN_Address.ELEVEN 
+    kLiftMotor = CAN_Address.TWELVE
+    kDefault_rotate_speed = .30
+    kDefault_lift_speed = .30
+class CannonConstant:
+    kCompressorAddress = CAN_Address.FIVE #TODO: figure out what this should be
+    kRelayAddress = Rio_Relay.ZERO #TODO: figure out what this should be
+
+
 
     
