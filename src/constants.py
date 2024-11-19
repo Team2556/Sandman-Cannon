@@ -117,7 +117,7 @@ class OIConstant:
 class TurretConstant:
     kRotateMotor = CAN_Address.ELEVEN 
     kLiftMotor = CAN_Address.TWELVE
-    kDefault_rotate_speed = .30
+    kDefault_rotate_speed = .10
     kDefault_lift_speed = .30
 class CannonConstant:
     kCompressorAddress = CAN_Address.FIVE #TODO: figure out what this should be

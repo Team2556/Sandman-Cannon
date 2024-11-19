@@ -1,18 +1,1 @@
-[
-  {
-    "name": "/Preferences/Cannon Position",
-    "type": "double",
-    "value": 90.0,
-    "properties": {
-      "persistent": true
-    }
-  },
-  {
-    "name": "/Preferences/CannonP",
-    "type": "double",
-    "value": 1.0,
-    "properties": {
-      "persistent": true
-    }
-  }
-]
+[]
