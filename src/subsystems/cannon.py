@@ -4,7 +4,7 @@ from wpilib import (SmartDashboard, Compressor, Relay, PneumaticsModuleType ,)
 
 
 import commands2
-from constants import CannonConstant
+from constants import *
 
 class Cannon(commands2.Subsystem):
     def __init__(self) -> None:
