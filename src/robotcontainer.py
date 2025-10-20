@@ -44,11 +44,11 @@ class RobotContainer:
         )
 
         rotate_right = commands2.cmd.run(
-            lambda: self.turret.move_rotate(TurretConstant.kDefault_rotate_speed),
+            lambda: self.turret.move_rotate(kTurret.rotation_speed),
             self.turret,
         )
         rotate_left = commands2.cmd.run(
-            lambda: self.turret.move_rotate(-TurretConstant.kDefault_rotate_speed),
+            lambda: self.turret.move_rotate(-kTurret.rotation_speed),
             self.turret,
         )
 

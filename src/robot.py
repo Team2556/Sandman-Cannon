@@ -10,7 +10,6 @@ from wpilib import SmartDashboard, Field2d
 
 from robotcontainer import RobotContainer
 
-# endregion Helper functions
 class MyRobot(commands2.TimedCommandRobot):
     def robotInit(self):
         """
@@ -21,7 +20,7 @@ class MyRobot(commands2.TimedCommandRobot):
         self.container = RobotContainer()
         self.field = Field2d()
         
-        SmartDashboard.putData("Field", self.field)  # end up viewing in Glass
+        SmartDashboard.putData("Field", self.field)  # Gets viewed in Glass
         SmartDashboard.putData(commands2.CommandScheduler.getInstance())
 
     def autonomousInit(self):

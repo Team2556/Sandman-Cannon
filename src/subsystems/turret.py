@@ -1,5 +1,5 @@
 from commands2 import Subsystem
-from constants import TurretConstant
+from constants import kTurret
 import wpilib
 import phoenix5
 import phoenix6
@@ -9,8 +9,8 @@ class Turret(Subsystem):
     def __init__(self):
         super().__init__()
 
-        self.rotate_motor = phoenix5.WPI_TalonSRX(TurretConstant.kRotateMotor)
-        self.lift_motor = phoenix5.WPI_TalonSRX(TurretConstant.kLiftMotor)
+        self.rotate_motor = phoenix5.WPI_TalonSRX(kTurret.rotation_motor)
+        self.lift_motor = phoenix5.WPI_TalonSRX(kTurret.lift_motor)
 
         if False: # Install Rotate Motor Limit Switchs
             self.rotate_motor.configForwardLimitSwitchSource(phoenix5.LimitSwitchSource.FeedbackConnector, phoenix5.LimitSwitchNormal.NormallyOpen)

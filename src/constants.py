@@ -1,7 +1,6 @@
 from enum import (IntEnum, auto)
 
-#region RoboRio Constants
-# included to help with communication and readability
+# Included to help with "communication" and "readability"
 class Rio_DIO(IntEnum):
     ZERRO = 0
     ONE = auto()
@@ -57,9 +56,7 @@ class Rio_Analog(IntEnum):
     ONE = auto()
     TWO = auto()
     THREE = auto()
-#endregion
 
-#region CAN Constants
 class CAN_Address(IntEnum):
     ZERRO = 0
     ONE = auto()
@@ -75,7 +72,6 @@ class CAN_Address(IntEnum):
     ELEVEN = auto()
     TWELVE = auto()
 
-#endregion
 class kDrive:
     left_motor_1_port = CAN_Address.THREE
     left_motor_2_port = CAN_Address.FOUR
@@ -90,8 +86,8 @@ class kDrive:
     encoder_distance_per_port = 1
     max_output = .45
     deadband = .3
-    wheel_base = 1.111 # meters
-    track_width = 1.112 # meters
+    wheel_base = 1.111 # Meters
+    track_width = 1.112 # Meters
 
 class kOI:
     joystick_0 = 0
@@ -100,14 +96,14 @@ class kOI:
 
 class kTurret:
     rotation_motor = CAN_Address.ELEVEN 
-    angle_motor = CAN_Address.TWELVE
+    lift_motor = CAN_Address.TWELVE
     
     rotation_speed = .10
     angle_speed = .30
     
 class kCannon:
-    compressor_address = CAN_Address.FIVE #TODO: figure out what this should be
-    relay_address = Rio_Relay.ZERO #TODO: figure out what this should be
+    compressor_address = CAN_Address.FIVE #TODO: Figure out what this should be
+    relay_address = Rio_Relay.ZERO #TODO: Figure out what this should be
 
 
 

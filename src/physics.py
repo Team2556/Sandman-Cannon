@@ -23,7 +23,7 @@ from wpimath.kinematics import (MecanumDriveKinematics,
 from wpimath.geometry import (Pose2d, Rotation2d, Translation2d)
 # from wpimath.estimator import MecanumDrivePoseEstimator 
 # from robotpy_ext.common_drivers import navx
-from constants import (DriveConstant, OIConstant)
+from constants import (kDrive, kOI)
 from phoenix6.unmanaged import feed_enable
 
 from pyfrc.physics.drivetrains import FourMotorDrivetrain
@@ -51,7 +51,7 @@ class PhysicsEngine:
         # self.gyro = AnalogGyroSim()#navx.AHRS.create_spi()
 
         #initialize the Xbox conroller
-        self.Drivercontroller = wpilib.XboxController(OIConstant.kDriver1ControllerPort)
+        self.Drivercontroller = wpilib.XboxController(kOI.joystick_1)
 
     def update_sim(self, now, tm_diff):
         # Currently, the Python API for CTRE doesn't automatically detect the the
@@ -70,54 +70,17 @@ class PhysicsEngine:
         backRightMotor_speed = self.backRightMotor.getMotorOutputLeadVoltage() / (12*(1-2*self.right_invert_YN))
         SmartDashboard.putNumber("backRightMotor_SIM getmotorOutput Volts by 12Volts", backRightMotor_speed)
 
-        match DriveConstant.kDriveType:
-            case "Mecanum":
-                wheel_speeds = MecanumDriveWheelSpeeds(
-                    frontLeftMotor_speed,
-                    frontRightMotor_speed,
-                    backLeftMotor_speed,
-                    backRightMotor_speed
-                )
-                # Create an odometry object
-                drivetrain_kinematics = MecanumDriveKinematics(
-                        Translation2d(DriveConstant.kWheelBase / 2, DriveConstant.kTrackWidth / 2),
-                        Translation2d(DriveConstant.kWheelBase / 2, -DriveConstant.kTrackWidth / 2),
-                        Translation2d(-DriveConstant.kWheelBase / 2, DriveConstant.kTrackWidth / 2),
-                        Translation2d(-DriveConstant.kWheelBase / 2, -DriveConstant.kTrackWidth / 2)
-                    )
-                chassis_speeds = drivetrain_kinematics.toChassisSpeeds(wheel_speeds)
-                # Update the physics controller with the new state
-                self.physics_controller.drive(chassis_speeds, tm_diff)
-            case "Tank":
-                # This is setup for Sandman - the morots directions are inverted in the gearboxes
 
-                wheel_speeds = DifferentialDriveWheelSpeeds(
-                    -frontLeftMotor_speed,
-                    -frontRightMotor_speed
-                )
-                # Create an odometry object
-                drivetrain_kinematics = DifferentialDriveKinematics(DriveConstant.kTrackWidth)
-                chassis_speeds = drivetrain_kinematics.toChassisSpeeds(wheel_speeds)
-                # Update the physics controller with the new state
-                self.physics_controller.drive(chassis_speeds, tm_diff)
-            case "Xdrive":
-                # TODO: FIX!!!!!!!!!!!!!!!
-                
-                wheel_speeds = MecanumDriveWheelSpeeds(
-                    frontLeftMotor_speed,
-                    frontRightMotor_speed,
-                    backLeftMotor_speed,
-                    backRightMotor_speed
-                )
-                # Create an odometry object for X-drive (similar to Mecanum)
-                drivetrain_kinematics = MecanumDriveKinematics(
-                    Translation2d(DriveConstant.kWheelBase / 2, DriveConstant.kTrackWidth / 2),
-                    Translation2d(DriveConstant.kWheelBase / 2, -DriveConstant.kTrackWidth / 2),
-                    Translation2d(-DriveConstant.kWheelBase / 2, DriveConstant.kTrackWidth / 2),
-                    Translation2d(-DriveConstant.kWheelBase / 2, -DriveConstant.kTrackWidth / 2)
-                )
-                chassis_speeds = drivetrain_kinematics.toChassisSpeeds(wheel_speeds)
-                # Update the physics controller with the new state
-                self.physics_controller.drive(chassis_speeds, tm_diff)
+
+        # This is setup for Sandman - the motors' directions are inverted in the gearboxes
+        wheel_speeds = DifferentialDriveWheelSpeeds(
+            -frontLeftMotor_speed,
+            -frontRightMotor_speed
+        )
+        # Create an odometry object
+        drivetrain_kinematics = DifferentialDriveKinematics(kDrive.track_width)
+        chassis_speeds = drivetrain_kinematics.toChassisSpeeds(wheel_speeds)
+        # Update the physics controller with the new state
+        self.physics_controller.drive(chassis_speeds, tm_diff)
 
     
