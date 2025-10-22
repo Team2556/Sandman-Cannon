@@ -30,9 +30,11 @@ class DriveTrain(commands2.Subsystem):
         self.BL_motor.follow(self.FL_motor)
         self.BR_motor.follow(self.FR_motor)
         
-        self.robot_drive = wpilib.drive.DifferentialDrive(
-            self.FL_motor, self.FR_motor
+        self.robot_drive : wpilib.drive.DifferentialDrive = wpilib.drive.DifferentialDrive(
+            self.FL_motor, 
+            self.FR_motor
         )
+        
         self.robot_drive.setMaxOutput(kDrive.max_output)
         self.robot_drive.setDeadband(kDrive.deadband) 
 
@@ -47,9 +49,6 @@ class DriveTrain(commands2.Subsystem):
     #         -joystick.getLeftY(), -((joystick.getRightX()) ** 5)
     #     )
     
-    def arcade_drive(self, x, y):
-        self.robot_drive.arcadeDrive(x, y)
-
-    def stop(self) -> None:
-        self.robot_drive.driveCartesian(0, 0, 0)
+    def arcade_drive(self, x, z):
+        self.robot_drive.arcadeDrive(x, z)
 

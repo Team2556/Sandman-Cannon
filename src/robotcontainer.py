@@ -5,7 +5,7 @@ from wpimath.geometry import Translation2d, Rotation2d
 import commands2
 from commands2 import CommandScheduler
 
-import subsystems
+from subsystems import cannon_subsystem, drivetrain_subsystem, turret_subsystem
 from constants import *
 
 class RobotContainer:
@@ -17,9 +17,9 @@ class RobotContainer:
             kOI.joystick_0
         )
         
-        self.drive_train = subsystems.DriveTrain()
-        # self.cannon = subsystems.Cannon()
-        self.turret = subsystems.Turret()
+        self.drive_train = drivetrain_subsystem.DriveTrain()
+        self.cannon = cannon_subsystem.Cannon()
+        self.turret = turret_subsystem.Turret()
     
         self.configure_default_commands()
         self.configure_button_bindings()
@@ -27,7 +27,7 @@ class RobotContainer:
     def configure_default_commands(self):
         self.drive_train.setDefaultCommand(
             commands2.cmd.run(
-                lambda: self.drive_train.driveWithJoystick(self.driverController),
+                lambda: self.drive_train.driveWithJoystick(self.joystick_0),
                 self.drive_train,
             )
         )
@@ -53,7 +53,7 @@ class RobotContainer:
         )
 
         # self.driverController.rightBumper().onTrue(fire_cannon)
-        self.driverController.leftTrigger().whileTrue(rotate_left)
-        self.driverController.rightTrigger().whileTrue(rotate_right)
+        self.joystick_0.leftTrigger().whileTrue(rotate_left)
+        self.joystick_0.rightTrigger().whileTrue(rotate_right)
 
         # end section
