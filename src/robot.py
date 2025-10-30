@@ -23,9 +23,12 @@ class MyRobot(commands2.TimedCommandRobot):
         SmartDashboard.putData("Field", self.field)  # Gets viewed in Glass
         SmartDashboard.putData(commands2.CommandScheduler.getInstance())
 
+    def robotPeriodic(self):
+        commands2.CommandScheduler.getInstance().run()
+
     def autonomousInit(self):
         """This function is run once each time the robot enters autonomous mode."""
-        self.timer.restart()
+        pass
 
     def autonomousPeriodic(self):
         """This function is called periodically during autonomous."""
@@ -37,7 +40,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def teleopPeriodic(self):
         """This function is called periodically during teleoperated mode."""
-        commands2.cmd.runOnce(lambda: self.robotDrive.halt())
+        pass
 
     def testInit(self):
         """This function is called once each time the robot enters test mode."""
@@ -45,3 +48,4 @@ class MyRobot(commands2.TimedCommandRobot):
 
     def testPeriodic(self):
         """This function is called periodically during test mode."""
+        pass

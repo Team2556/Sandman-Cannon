@@ -6,6 +6,7 @@ import commands2
 from commands2 import CommandScheduler
 
 from subsystems import cannon_subsystem, drivetrain_subsystem, turret_subsystem
+from commands import cannon_commands, drivetrain_commands, turret_commands
 from constants import *
 
 class RobotContainer:
@@ -25,35 +26,33 @@ class RobotContainer:
         self.configure_button_bindings()
     
     def configure_default_commands(self):
-        self.drive_train.setDefaultCommand(
-            commands2.cmd.run(
-                lambda: self.drive_train.driveWithJoystick(self.joystick_0),
-                self.drive_train,
-            )
-        )
-        self.cannon.setDefaultCommand(
-            commands2.cmd.run(lambda: self.cannon.stop(), self.cannon)
-        )
-        self.turret.setDefaultCommand(
-            commands2.cmd.run(lambda: self.turret.stop_rotate(), self.turret)
-        )
+        
+        self.drivetrain_command = drivetrain_commands.DriveWithJoystick(self.drive_train, self.joystick_0)
+        self.drive_train.setDefaultCommand(self.drivetrain_command)
+        
+        self.turret_default_command = turret_commands.MoveTurretWithJoystick(self.turret, self.joystick_0)
+        self.turret.setDefaultCommand(self.turret_default_command)
+        
+        # Not looked at yet:
+        # self.cannon.setDefaultCommand(
+        #     commands2.cmd.run(lambda: self.cannon.stop(), self.cannon)
+        # )
         
     def configure_button_bindings(self):
-        fire_cannon = commands2.cmd.run(lambda: self.cannon.fire()).raceWith(
-            commands2.WaitCommand(0.2)
+        
+        self.fire_cannon_command = (
+            cannon_commands.FireCannon(self.cannon)
+            .withInterruptBehavior(commands2.InterruptionBehavior.kCancelIncoming)
         )
-
-        rotate_right = commands2.cmd.run(
-            lambda: self.turret.move_rotate(kTurret.rotation_speed),
-            self.turret,
-        )
-        rotate_left = commands2.cmd.run(
-            lambda: self.turret.move_rotate(-kTurret.rotation_speed),
-            self.turret,
-        )
-
-        # self.driverController.rightBumper().onTrue(fire_cannon)
-        self.joystick_0.leftTrigger().whileTrue(rotate_left)
-        self.joystick_0.rightTrigger().whileTrue(rotate_right)
-
-        # end section
+        self.joystick_0.b().onTrue(self.fire_cannon_command)
+        
+        # Not using triggers for turret movement
+        # rotate_right = commands2.cmd.run(
+        #     lambda: self.turret.move_rotate(kTurret.rotation_speed),
+        #     self.turret,
+        # )
+        
+        # rotate_left = commands2.cmd.run(
+        #     lambda: self.turret.move_rotate(-kTurret.rotation_speed),
+        #     self.turret,
+        # )

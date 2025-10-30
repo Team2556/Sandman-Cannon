@@ -3,7 +3,10 @@ from subsystems import drivetrain_subsystem
 from constants import kDrive
 
 class DriveWithJoystick(commands2.Command):
-    def __init__(self, drivetrain : drivetrain_subsystem, joystick_0 : commands2.button.CommandXboxController) -> None:
+    def __init__(
+        self, drivetrain : drivetrain_subsystem.DriveTrain, 
+        joystick_0 : commands2.button.CommandXboxController
+    ) -> None:
         
         self.drivetrain = drivetrain
         
@@ -12,6 +15,7 @@ class DriveWithJoystick(commands2.Command):
         self.addRequirements(self.drivetrain)
     
     def execute(self):
+        x = self.joystick_0.getLeftY()
+        z = self.joystick_0.getLeftX()
         
-        self.joystick_0.getLeftY()
-        self.joystick_0.getRightX()
+        self.drivetrain.arcade_drive(x, z)
