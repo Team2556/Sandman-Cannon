@@ -58,7 +58,7 @@ class Rio_Analog(IntEnum):
     THREE = auto()
 
 class CAN_Address(IntEnum):
-    ZERRO = 0
+    ZERO = 0
     ONE = auto()
     TWO = auto()
     THREE = auto()
@@ -72,6 +72,12 @@ class CAN_Address(IntEnum):
     ELEVEN = auto()
     TWELVE = auto()
 
+# ACTUAL START OF CONSTANTS
+
+class kOI:
+    joystick_0 = 0
+    joystick_1 = 1
+
 class kDrive:
     left_motor_1_port = CAN_Address.THREE
     left_motor_2_port = CAN_Address.FOUR
@@ -83,27 +89,27 @@ class kDrive:
     BackLeftEncoderPorts = (Rio_DIO.FOURTEEN, Rio_DIO.FIFTEEN)
     BackRightEncoderPorts = (Rio_DIO.SIXTEEN, Rio_DIO.SEVENTEEN)
     
-    encoder_distance_per_port = 1
+    encoder_distance_per_port = 1 # ?
+    
     max_output = .45
-    deadband = .3
+    deadband = .15
+    
     wheel_base = 1.111 # Meters
     track_width = 1.112 # Meters
-
-class kOI:
-    joystick_0 = 0
-    joystick_1 = 1
-
 
 class kTurret:
     rotation_motor = CAN_Address.ELEVEN 
     lift_motor = CAN_Address.TWELVE
     
-    rotation_speed = .10
-    angle_speed = .30
+    rotation_speed_multiplier = .10
+    lift_speed_multiplier = .30
     
 class kCannon:
-    compressor_address = CAN_Address.FIVE #TODO: Figure out what this should be
+    compressor_address = CAN_Address.FIVE #TODO: Figure out what this should be (and if it's needed)
     relay_address = Rio_Relay.ZERO #TODO: Figure out what this should be
+    
+    # Set time to activate the binary pneumatics thing in the cannon
+    activate_time = 0.5
 
 
 

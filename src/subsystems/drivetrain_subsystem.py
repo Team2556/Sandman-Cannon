@@ -18,11 +18,6 @@ class DriveTrain(commands2.Subsystem):
         self.FR_motor = phoenix5.WPI_TalonSRX(kDrive.right_motor_1_port)
         self.BR_motor = phoenix5.WPI_TalonSRX(kDrive.right_motor_2_port)
 
-        SmartDashboard.putData("frontLeftMotor -from drivetrain", self.FL_motor)
-        SmartDashboard.putData("frontRightMotor -from drivetrain", self.FR_motor)
-        SmartDashboard.putData("backLeftMotor -from drivetrain", self.BL_motor)
-        SmartDashboard.putData("backRightMotor -from drivetrain", self.BR_motor)
-
         # Ensures POS Voltages correspond to forward for all motors
         self.FL_motor.setInverted(True)
         self.BL_motor.setInverted(True)
@@ -37,18 +32,19 @@ class DriveTrain(commands2.Subsystem):
         
         self.robot_drive.setMaxOutput(kDrive.max_output)
         self.robot_drive.setDeadband(kDrive.deadband) 
+        
+        # Temporary access joystick
+        self.joystick_0 = commands2.button.CommandXboxController(
+            kOI.joystick_0
+        )
 
     def periodic(self) -> None:
         """This method will be called once per scheduler run"""
-        pass
-
-    # TODO: Setup Command File
-    # def driveWithJoystick(self, joystick: wpilib.Joystick):
-    #     """Drives the robot using the joystick"""
-    #     self.robot_drive.arcadeDrive(
-    #         -joystick.getLeftY(), -((joystick.getRightX()) ** 5)
-    #     )
     
     def arcade_drive(self, x, z):
-        self.robot_drive.arcadeDrive(x, z)
+        # Using manual deadband and input modifying
+        self.robot_drive.arcadeDrive(x, z, squareInputs=True)
+        
+        SmartDashboard.putNumber("Left Drive Motor Speeds", self.FL_motor.get() * -1)
+        SmartDashboard.putNumber("Right Drive Motor Speeds", self.FR_motor.get() * -1)
 
