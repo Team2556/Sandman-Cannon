@@ -30,13 +30,9 @@ class RobotContainer:
         self.drivetrain_command = drivetrain_commands.DriveWithJoystick(self.drive_train, self.joystick_0)
         self.drive_train.setDefaultCommand(self.drivetrain_command)
         
+        # Look at the whiteboard to figure out what this is vvv
         self.turret_default_command = turret_commands.MoveTurretWithJoystick(self.turret, self.joystick_0)
         self.turret.setDefaultCommand(self.turret_default_command)
-        
-        # Not looked at yet:
-        # self.cannon.setDefaultCommand(
-        #     commands2.cmd.run(lambda: self.cannon.stop(), self.cannon)
-        # )
         
     def configure_button_bindings(self):
         
@@ -45,14 +41,3 @@ class RobotContainer:
             .withInterruptBehavior(commands2.InterruptionBehavior.kCancelIncoming)
         )
         self.joystick_0.b().onTrue(self.fire_cannon_command)
-        
-        # Not using triggers for turret movement
-        # rotate_right = commands2.cmd.run(
-        #     lambda: self.turret.move_rotate(kTurret.rotation_speed),
-        #     self.turret,
-        # )
-        
-        # rotate_left = commands2.cmd.run(
-        #     lambda: self.turret.move_rotate(-kTurret.rotation_speed),
-        #     self.turret,
-        # )
