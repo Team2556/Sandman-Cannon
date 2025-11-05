@@ -14,7 +14,7 @@ you should do:
 - four button binded commands that move it individually (instead of one default command that moves it with joystick)
   - you can use the plus shaped buttons on the left of the controller (povUp, povDown, povLeft, povRight)
 - use robotcontainer to bind the buttons (like the fire cannon command button)
-- and the subsystem that uses 
+- and make the turret subsystem that uses motors that you might have to copy from the reference
 
 
 ...
