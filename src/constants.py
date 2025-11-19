@@ -98,7 +98,7 @@ class kDrive:
     track_width = 1.112 # Meters
 
 class kTurret:
-    rotation_motor = CAN_Address.ELEVEN 
+    rotation_motor = CAN_Address.ELEVEN
     lift_motor = CAN_Address.TWELVE
     
     rotation_speed_multiplier = .10
