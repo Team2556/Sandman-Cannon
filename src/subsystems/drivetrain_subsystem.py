@@ -35,7 +35,7 @@ class DriveTrain(commands2.Subsystem):
         
         # Temporary access joystick
         self.joystick_0 = commands2.button.CommandXboxController(
-            kOI.joystick_0
+            kOI.controller_0
         )
 
     def periodic(self) -> None:

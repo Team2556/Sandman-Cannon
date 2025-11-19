@@ -75,7 +75,7 @@ class CAN_Address(IntEnum):
 # ACTUAL START OF CONSTANTS
 
 class kOI:
-    joystick_0 = 0
+    controller_0 = 0
     joystick_1 = 1
 
 class kDrive:

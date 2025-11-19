@@ -9,3 +9,5 @@ class Turret(Subsystem):
     ...
     # WHERE DID THE CODE GO ???
     # also the "..." makes it so the class wont have an error if you put nothing after it
+    def turretMobility(dpad_direction):
+            print(dpad_direction)
