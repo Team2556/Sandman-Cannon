@@ -85,8 +85,8 @@ class DriveTrain(commands2.Subsystem):
         #     self.backRightMotor.follow(self.frontRightMotor)
         #     self.robotDrive = wpilib.drive.DifferentialDrive(self.frontLeftMotor, self.frontRightMotor)
 
-        self.robotDrive.setMaxOutput(0.45)
-        self.robotDrive.setDeadband(0.3)
+        self.robotDrive.setMaxOutput(DriveConstant.kMaxOutput)
+        self.robotDrive.setDeadband(DriveConstant.kDeadband)
         if DriveConstant.kDriveType != "Tank":
             self.robotDrive.driveCartesian(0, 0, 0)
 
@@ -113,8 +113,10 @@ class DriveTrain(commands2.Subsystem):
                 Rotation2d(0),
             )
         elif isinstance(self.robotDrive, wpilib.drive.DifferentialDrive):
+            turnInput = joystick.getRightX()
+            turnCurved = math.copysign(turnInput ** 2, turnInput)
             self.robotDrive.arcadeDrive(
-                -joystick.getLeftY(), -((joystick.getRightX()) ** 5)
+                -joystick.getLeftY(), -turnCurved
             )
         else:
             self.robotDrive.driveCartesian(

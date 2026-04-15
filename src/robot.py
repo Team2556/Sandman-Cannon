@@ -56,7 +56,7 @@ class MyRobot(commands2.TimedCommandRobot):
             commands2.cmd.run(lambda: self.cannon.stop(), self.cannon)
         )
         self.turret.setDefaultCommand(
-            commands2.cmd.run(lambda: self.turret.stop_rotate(), self.turret)
+            commands2.cmd.run(lambda: (self.turret.stop_rotate(), self.turret.stop_lift()), self.turret)
         )
 
         # region SmartDashboard init
@@ -160,7 +160,7 @@ class MyRobot(commands2.TimedCommandRobot):
 
         # connon Firing
         fire_cannon = commands2.cmd.run(lambda: self.cannon.fire()).raceWith(
-            commands2.WaitCommand(0.2)
+            commands2.WaitCommand(0.05)
         )
 
         # section Turret
@@ -174,8 +174,19 @@ class MyRobot(commands2.TimedCommandRobot):
             self.turret,
         )
 
-        # self.driverController.rightBumper().onTrue(fire_cannon)
-        self.driverController.leftTrigger().whileTrue(rotate_left)
-        self.driverController.rightTrigger().whileTrue(rotate_right)
+        lift_up = commands2.cmd.run(
+            lambda: self.turret.move_lift(TurretConstant.kDefault_lift_speed),
+            self.turret,
+        )
+        lift_down = commands2.cmd.run(
+            lambda: self.turret.move_lift(-TurretConstant.kDefault_lift_speed),
+            self.turret,
+        )
+
+        self.driverController.rightBumper().onTrue(fire_cannon)
+        self.driverController.povLeft().whileTrue(rotate_left)
+        self.driverController.povRight().whileTrue(rotate_right)
+        self.driverController.povUp().whileTrue(lift_up)
+        self.driverController.povDown().whileTrue(lift_down)
 
         # end section

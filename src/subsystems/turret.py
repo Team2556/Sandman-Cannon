@@ -29,7 +29,8 @@ class Turret(Subsystem):
         forward_limit = motor.getSensorCollection().isFwdLimitSwitchClosed()
         reverse_limit = motor.getSensorCollection().isRevLimitSwitchClosed()
 
-        motor.set(0 if forward_limit or reverse_limit else speed)
+        # motor.set(0 if forward_limit or reverse_limit else speed)
+        motor.set(speed)
 
     def move_lift(self, speed: float):
         #make sure the turret is within the limits
@@ -37,7 +38,8 @@ class Turret(Subsystem):
         forward_limit = motor.getSensorCollection().isFwdLimitSwitchClosed()
         reverse_limit = motor.getSensorCollection().isRevLimitSwitchClosed()
 
-        motor.set(0 if forward_limit or reverse_limit else speed)
+        # motor.set(0 if forward_limit or reverse_limit else speed)
+        motor.set(speed)
     
     def aimWithJoystick(self, joystick: wpilib.Joystick):# rotate_speed: float, lift_speed: float):
         rotate_speed = joystick.getRightX() ** 3 #try to allow for fine control
